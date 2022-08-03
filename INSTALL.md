@@ -1,19 +1,3 @@
-# MSeqSynth
-
-## About
-
-MSeqSynth is a research prototype that synthesizes sequences of calls to the public methods (and constructors) in data structure classes, such that the method call sequence constructs a target heap state satisfying a given specification.
-
-MSeqSynth can be useful in both test generation tasks and (bounded) verification tasks. In the task of test generation, the synthesized call sequence could be used as a unit test for covering specific program branches or triggering specific types of errors. In the task of verification, the synthesized call sequence could be regard as a witness for determining the existence of a *reachable* heap state satisfying the given specification.
-
-## Dependencies
-
-MSeqSynth is based on the symbolic execution engine [JBSE](https://github.com/pietrobraione/jbse), which has many dependencies as follows:
-
-- JBSE must be built using a JDK version 8 - neither less, nor more. Since starting from version 2020-09 Eclipse requires at least Java 11 to run, your development machine will need to have both a Java 11 or greater (to run Eclipse) and a Java 8 setup (to build and run JBSE).
-- JBSE needs to interact at runtime with an SMT solver (e.g. Z3) for pruning infeasible program paths.
-- Several dependencies that could be automatically resolved by Gradle, including [JavaCC](https://javacc.org/), [JUnit](http://junit.org/), the `tools.jar` library that is part of every JDK 8 setup (note, *not* of the JRE), and [Javassist](http://jboss-javassist.github.io/javassist/).
-
 ## Working under Eclipse on Windows 10
 
 1. Clone the MSeqSynth git repository.
