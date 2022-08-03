@@ -1,0 +1,15 @@
+package jbse.algo.meta;
+
+import static jbse.bc.Signatures.JBSE_JAVA_CONCURRENTMAP_REFINEIN;
+import static jbse.bc.Signatures.JBSE_JAVA_CONCURRENTMAP_REFINEMAPCOMPLETE;
+
+/**
+ * Meta-level implementation of {@link jbse.base.JAVA_CONCURRENTMAP#refineOnFreshEntryAndBranch()}.
+ * 
+ * @author Pietro Braione
+ */
+public final class Algo_JBSE_JAVA_CONCURRENTMAP_REFINEONFRESHENTRYANDBRANCH extends Algo_JBSE_JAVA_XMAP_REFINEONFRESHENTRYANDBRANCH {
+	public Algo_JBSE_JAVA_CONCURRENTMAP_REFINEONFRESHENTRYANDBRANCH() {
+		super("JAVA_CONCURRENTMAP", JBSE_JAVA_CONCURRENTMAP_REFINEIN, JBSE_JAVA_CONCURRENTMAP_REFINEMAPCOMPLETE);
+	}
+}

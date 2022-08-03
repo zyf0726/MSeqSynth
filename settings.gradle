@@ -1,0 +1,3 @@
+rootProject.name = 'MSeqSynth'
+include(':jbse')
+project(':jbse').projectDir = file('jbse')

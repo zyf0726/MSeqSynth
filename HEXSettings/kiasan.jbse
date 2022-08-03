@@ -1,0 +1,49 @@
+resolve begin
+
+-----------------------------------------------
+-- representation invariant for AATree
+
+-- nullNode is not null 
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode instanceof dsclasses/kiasan/aatree/AATree$AANode not null;
+
+-- nullNode.left == nullNode
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:left instanceof dsclasses/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:left instanceof dsclasses/kiasan/aatree/AATree$AANode expands to nothing;
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:left instanceof dsclasses/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode;
+
+-- nullNode.right == nullNode
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:right instanceof dsclasses/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:right instanceof dsclasses/kiasan/aatree/AATree$AANode expands to nothing;
+{R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode.dsclasses/kiasan/aatree/AATree$AANode:right instanceof dsclasses/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode;
+
+-- root/left/right entries expand or alias to nullNode
+{R_ANY}.dsclasses/kiasan/aatree/AATree:root(.dsclasses/kiasan/aatree/AATree$AANode:left|.dsclasses/kiasan/aatree/AATree$AANode:right)* instanceof dsclasses/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.dsclasses/kiasan/aatree/AATree:root(.dsclasses/kiasan/aatree/AATree$AANode:left|.dsclasses/kiasan/aatree/AATree$AANode:right)* instanceof dsclasses/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.dsclasses/kiasan/aatree/AATree:nullNode;
+
+
+-----------------------------------------------
+-- representation invariant for BinarySearchTree
+
+-- acyclic
+{R_ANY}.dsclasses/kiasan/bst/BinarySearchTree:root(.dsclasses/kiasan/bst/BinaryNode:left|.dsclasses/kiasan/bst/BinaryNode:right)* instanceof dsclasses/kiasan/bst/BinaryNode aliases nothing;
+
+
+-----------------------------------------------
+-- representation invariant for LeftistHeap
+
+-- acyclic
+{R_ANY}.dsclasses/kiasan/leftist/LeftistHeap:root(.dsclasses/kiasan/leftist/LeftistHeap$LeftistNode:left|.dsclasses/kiasan/leftist/LeftistHeap$LeftistNode:right)* instanceof dsclasses/kiasan/leftist/LeftistHeap$LeftistNode aliases nothing;
+
+
+-----------------------------------------------
+-- representation invariant for StackLi
+
+-- acyclic
+{R_ANY}.dsclasses/kiasan/stackli/StackLi:topOfStack(.dsclasses/kiasan/stackli/ListNode:next)* instanceof dsclasses/kiasan/stackli/ListNode aliases nothing;
+
+-- parameter x and field ListNode.element are both distinct objects or null, or alias of each other
+{ROOT}:x instanceof java/lang/Object aliases target {ROOT}:this.dsclasses/kiasan/stackli/StackLi:topOfStack(.dsclasses/kiasan/stackli/ListNode:next)*.dsclasses/kiasan/stackli/ListNode:element;
+{ROOT}:this.dsclasses/kiasan/stackli/StackLi:topOfStack(.dsclasses/kiasan/stackli/ListNode:next)*.dsclasses/kiasan/stackli/ListNode:element instanceof java/lang/Object aliases target {ROOT}:x;
+
+
+resolve end
