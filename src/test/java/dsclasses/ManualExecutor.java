@@ -16,7 +16,6 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import dsclasses.ListNode;
 import dsclasses.ManualExecutor;
 import mseqsynth.algo.MethodInvoke;
 import mseqsynth.heap.FieldH;

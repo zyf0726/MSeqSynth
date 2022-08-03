@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import dsclasses.ListNode;
 import mseqsynth.algo.Statement;
 import mseqsynth.algo.StaticGraphBuilder;
 import mseqsynth.algo.TestGenerator;
