@@ -1,0 +1,18 @@
+resolve begin
+
+-- parameter value and field Entry.value are both distinct objects or null, or alias of each other 
+{ROOT}:value instanceof java/lang/Object aliases target {ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)*.examples/kiasan/redblacktree/TreeMap$Entry:value;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)*.examples/kiasan/redblacktree/TreeMap$Entry:value instanceof java/lang/Object aliases target {ROOT}:value;
+
+-- root/left/right entries expand and cannot be values
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)* instanceof examples/kiasan/redblacktree/TreeMap$Entry aliases nothing;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)*.value instanceof java/lang/Object aliases target {ROOT}:(?!{°}*examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)*{EOL}){°}*;
+
+-- TreeMap.Entry.wellConnected
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root.examples/kiasan/redblacktree/TreeMap$Entry:parent instanceof examples/kiasan/redblacktree/TreeMap$Entry expands to nothing;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root.examples/kiasan/redblacktree/TreeMap$Entry:parent instanceof examples/kiasan/redblacktree/TreeMap$Entry aliases nothing;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)+.examples/kiasan/redblacktree/TreeMap$Entry:parent instanceof examples/kiasan/redblacktree/TreeMap$Entry not null;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)+.examples/kiasan/redblacktree/TreeMap$Entry:parent instanceof examples/kiasan/redblacktree/TreeMap$Entry expands to nothing;
+{ROOT}:this.examples/kiasan/redblacktree/TreeMap:root(.examples/kiasan/redblacktree/TreeMap$Entry:left|.examples/kiasan/redblacktree/TreeMap$Entry:right)+.examples/kiasan/redblacktree/TreeMap$Entry:parent instanceof examples/kiasan/redblacktree/TreeMap$Entry aliases target {$REF}.{UP}.{UP};
+
+resolve end

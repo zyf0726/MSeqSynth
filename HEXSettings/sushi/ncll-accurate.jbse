@@ -1,0 +1,83 @@
+resolve begin
+
+-- parameter o/value and field Node.value are both distinct objects or null, or alias of each other 
+{ROOT}:o instanceof java/lang/Object aliases target {R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object aliases target {ROOT}:o;
+{ROOT}:value instanceof java/lang/Object aliases target {R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object aliases target {ROOT}:value;
+
+------------------------------------------------- 
+-- representation invariants for this.l
+
+-- defines the NodeCachingLinkedList._owner instrumentation field necessary to triggers
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList not null;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList aliases target {$R_ANY};
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList not null;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:_owner instanceof examples/sushi/ncll/NodeCachingLinkedList aliases target {$R_ANY};
+
+-- list header must exist and be distinct from other nodes
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode not null;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases nothing;
+
+-- list header stores no data
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object aliases nothing;
+
+-- all the noncached nodes must have a next and a previous
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next|.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)* instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode not null;
+
+-- the size of a list must be greater than the number of noncached nodes (by trigger)
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)+ instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_got_LinkedListNode_nonroot:{$REF};
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+ instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_got_LinkedListNode_nonroot:{$REF};
+
+-- the rightmost noncached node can be resolved by alias to the leftmost one and vice versa;
+-- in this case the size of the list is exactly the number of noncached nodes (by trigger)
+-- (note that these rules include the degenerate empty list case header.next == header.prev == header);
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)* instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases target {MAX}{$R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)* triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_handleListClosure:{$REF};
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)* instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases target {MAX}{$R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)* triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_handleListClosure:{$REF};
+
+-- for all the noncached nodes e it must be e.next.previous == e and e.previous.next == e
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases target {$REF}.{UP}.{UP};
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:header(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous)+.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases target {$REF}.{UP}.{UP};
+
+-- the cached nodes do not store data
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object aliases nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:value instanceof java/lang/Object expands to nothing;
+
+-- all the cached nodes must have previous == null
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to nothing;
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)*.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:previous instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases nothing;
+
+-- all the cached nodes must be distinct.
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)* instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode aliases nothing;
+
+-- the size of the cache must be greater than the number of assumed cached nodes (by trigger)
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)* instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode expands to instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_got_CachedListNode:{$REF};
+
+-- if the rightmost cache node n has n.next == null, then the size of the cache is exactly the number of assumed cached nodes (by trigger) 
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode null triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList;)V:_handleCacheClosureEmpty:{$REF}.{UP};
+{R_ANY}.examples/sushi/ncll/NodeCachingLinkedList:firstCachedNode(.examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:next)+ instanceof examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode null triggers examples/sushi/ncll/NodeCachingLinkedList$LinkedListNode:(Lexamples/sushi/ncll/NodeCachingLinkedList$LinkedListNode;)V:_handleCacheClosure:{$REF}.{UP};
+
+------------------------------------------------- 
+-- other possible constraints for reducing the state space, not enforced
+-- to keep the analysis consistent across different techniques:
+-- 1: {ROOT}:this.v_NodeCachingLinkedList must exist;
+-- 2: there is a {ROOT}:this.o object that must exist
+--    (by expansion, no alias),
+-- 3: and all the elements in {ROOT}:this.v_NodeCachingLinkedList 
+--    may only alias {ROOT}:this.o (this does not exclude
+--    expansion and null cases, but reduces the many uninteresting
+--    aliases cases).
+-- Alternatively:
+-- 2'/3': all the elements in {ROOT}:this.v_NodeCachingLinkedList
+--        cannot alias a list, or a list node.
+resolve end
+
+trigger begin
+-- list initialization trigger
+instanceof examples/sushi/ncll/NodeCachingLinkedList expands to instanceof examples/sushi/ncll/NodeCachingLinkedList triggers examples/sushi/ncll/NodeCachingLinkedList$HEXTriggers:(Lexamples/sushi/ncll/NodeCachingLinkedList;)V:_got_NodeCachingLinkedList:{$REF};
+trigger end

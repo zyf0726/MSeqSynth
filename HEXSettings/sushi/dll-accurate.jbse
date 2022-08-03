@@ -1,0 +1,53 @@
+resolve begin
+
+-- abstract lists are expanded to concrete ones (plus list initialization trigger)
+instanceof java/util/List expands to instanceof examples/sushi/dll/LinkedList triggers examples/sushi/dll/LinkedList:(Lexamples/sushi/dll/LinkedList;)V:_got_LinkedList:{$REF};
+
+-- parameter o, e and element can be alias only of field Entry.element
+{ROOT}:o instanceof java/lang/Object aliases target {R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$LinkedListEntry:next|.examples/sushi/dll/LinkedList$LinkedListEntry:previous)+.examples/sushi/dll/LinkedList$LinkedListEntry:element;
+{ROOT}:e instanceof java/lang/Object aliases target {R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$LinkedListEntry:next|.examples/sushi/dll/LinkedList$LinkedListEntry:previous)+.examples/sushi/dll/LinkedList$LinkedListEntry:element;
+{ROOT}:element instanceof java/lang/Object aliases target {R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$LinkedListEntry:next|.examples/sushi/dll/LinkedList$LinkedListEntry:previous)+.examples/sushi/dll/LinkedList$LinkedListEntry:element;
+
+-- for all the entries e, e.element is not an entry
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)*.examples/sushi/dll/LinkedList$Entry:element instanceof java/lang/Object aliases target {ROOT}:(?!{°}*examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)*{EOL}){°}*;
+
+-----------------------------------------------
+-- representation invariant for LinkedList
+
+-- defines the Entry._owner instrumentation field necessary to triggers
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)*.examples/sushi/dll/LinkedList$Entry:_owner instanceof examples/sushi/dll/LinkedList not null;
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)*.examples/sushi/dll/LinkedList$Entry:_owner instanceof examples/sushi/dll/LinkedList expands to nothing;
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)*.examples/sushi/dll/LinkedList$Entry:_owner instanceof examples/sushi/dll/LinkedList aliases target {$R_ANY};
+
+-- list header must exist and be distinct from other nodes
+{R_ANY}.examples/sushi/dll/LinkedList:header instanceof examples/sushi/dll/LinkedList$Entry not null;
+{R_ANY}.examples/sushi/dll/LinkedList:header instanceof examples/sushi/dll/LinkedList$Entry aliases nothing;
+
+-- list header stores no data
+{R_ANY}.examples/sushi/dll/LinkedList:header.examples/sushi/dll/LinkedList$Entry:element instanceof java/lang/Object expands to nothing;
+{R_ANY}.examples/sushi/dll/LinkedList:header.examples/sushi/dll/LinkedList$Entry:element instanceof java/lang/Object aliases nothing;
+
+-- all list entries must have a next and a previous
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next|.examples/sushi/dll/LinkedList$Entry:previous)* instanceof examples/sushi/dll/LinkedList$Entry not null;
+
+-- the size of a list must be greater than the number of list entries (by trigger)
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next)+ instanceof examples/sushi/dll/LinkedList$Entry expands to instanceof examples/sushi/dll/LinkedList$Entry triggers examples/sushi/dll/LinkedList$Entry:(Lexamples/sushi/dll/LinkedList$Entry;)V:_got_LinkedList_Entry_nonroot:{$REF};
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:previous)+ instanceof examples/sushi/dll/LinkedList$Entry expands to instanceof examples/sushi/dll/LinkedList$Entry triggers examples/sushi/dll/LinkedList$Entry:(Lexamples/sushi/dll/LinkedList$Entry;)V:_got_LinkedList_Entry_nonroot:{$REF};
+
+-- the rightmost entry can be resolved by alias to the leftmost one and vice versa;
+-- in this case the size of the list is exactly the number of list entries (by trigger)
+-- (note that these rules include the degenerate empty list case header.next == header.prev == header);
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next)* instanceof examples/sushi/dll/LinkedList$Entry aliases target {MAX}{$R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:previous)* triggers examples/sushi/dll/LinkedList$Entry:(Lexamples/sushi/dll/LinkedList$Entry;)V:_handleListClosure:{$REF};
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:previous)* instanceof examples/sushi/dll/LinkedList$Entry aliases target {MAX}{$R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next)* triggers examples/sushi/dll/LinkedList$Entry:(Lexamples/sushi/dll/LinkedList$Entry;)V:_handleListClosure:{$REF};
+
+-- for all the entries e it must be e.next.previous == e and e.previous.next == e
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next)+.examples/sushi/dll/LinkedList$Entry:previous instanceof examples/sushi/dll/LinkedList$Entry expands to nothing;
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:next)+.examples/sushi/dll/LinkedList$Entry:previous instanceof examples/sushi/dll/LinkedList$Entry aliases target {$REF}.{UP}.{UP};
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:previous)+.examples/sushi/dll/LinkedList$Entry:next instanceof examples/sushi/dll/LinkedList$Entry expands to nothing;
+{R_ANY}.examples/sushi/dll/LinkedList:header(.examples/sushi/dll/LinkedList$Entry:previous)+.examples/sushi/dll/LinkedList$Entry:next instanceof examples/sushi/dll/LinkedList$Entry aliases target {$REF}.{UP}.{UP};
+resolve end
+
+trigger begin
+-- list initialization trigger
+instanceof examples/sushi/dll/LinkedList expands to instanceof examples/sushi/dll/LinkedList triggers examples/sushi/dll/LinkedList:(Lexamples/sushi/dll/LinkedList;)V:_got_LinkedList:{$REF};
+trigger end

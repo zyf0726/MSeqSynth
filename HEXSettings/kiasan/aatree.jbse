@@ -1,0 +1,22 @@
+resolve begin
+
+-- representation invariant for AATree
+
+-- nullNode is not null 
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode instanceof examples/kiasan/aatree/AATree$AANode not null;
+
+-- nullNode.left == nullNode
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:left instanceof examples/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:left instanceof examples/kiasan/aatree/AATree$AANode expands to nothing;
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:left instanceof examples/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.examples/kiasan/aatree/AATree:nullNode;
+
+-- nullNode.right == nullNode
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:right instanceof examples/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:right instanceof examples/kiasan/aatree/AATree$AANode expands to nothing;
+{R_ANY}.examples/kiasan/aatree/AATree:nullNode.examples/kiasan/aatree/AATree$AANode:right instanceof examples/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.examples/kiasan/aatree/AATree:nullNode;
+
+-- root/left/right entries expand or alias to nullNode
+{R_ANY}.examples/kiasan/aatree/AATree:root(.examples/kiasan/aatree/AATree$AANode:left|.examples/kiasan/aatree/AATree$AANode:right)* instanceof examples/kiasan/aatree/AATree$AANode not null;
+{R_ANY}.examples/kiasan/aatree/AATree:root(.examples/kiasan/aatree/AATree$AANode:left|.examples/kiasan/aatree/AATree$AANode:right)* instanceof examples/kiasan/aatree/AATree$AANode aliases target {$R_ANY}.examples/kiasan/aatree/AATree:nullNode;
+
+resolve end

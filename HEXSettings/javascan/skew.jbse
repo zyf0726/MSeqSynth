@@ -1,0 +1,6 @@
+resolve begin
+
+-- acyclic
+{R_ANY}.examples/javascan/skewheap/SkewHeap:root(.examples/javascan/skewheap/SkewHeap$SkewNode:left|.examples/javascan/skewheap/SkewHeap$SkewNode:right)* instanceof examples/javascan/skewheap/SkewHeap$SkewNode aliases nothing;
+
+resolve end

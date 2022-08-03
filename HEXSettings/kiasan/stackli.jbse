@@ -1,0 +1,15 @@
+resolve begin
+
+-- representation invariant for StackLi
+
+-- acyclic
+{R_ANY}.examples/kiasan/stack/StackLi:topOfStack(.examples/kiasan/stack/ListNode:next)* instanceof examples/kiasan/stack/ListNode aliases nothing;
+
+-- for all the nodes e, e.element is not a node
+{R_ANY}.examples/kiasan/stack/StackLi:topOfStack(.examples/kiasan/stack/ListNode:next)*.examples/kiasan/stack/ListNode:element instanceof java/lang/Object aliases target {ROOT}:(?!{°}*examples/kiasan/stack/StackLi:topOfStack(.examples/kiasan/stack/ListNode:next)*{EOL}){°}*;
+
+-- parameter x can be alias only of field ListNode.element
+{ROOT}:x instanceof java/lang/Object aliases target {ROOT}:this.examples/kiasan/stack/StackLi:topOfStack(.examples/kiasan/stack/ListNode:next)*.examples/kiasan/stack/ListNode:element;
+
+
+resolve end

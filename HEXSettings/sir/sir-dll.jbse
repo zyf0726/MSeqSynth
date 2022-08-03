@@ -1,0 +1,32 @@
+resolve begin
+
+-- parameter o and element can be alias only of field Entry.element
+{ROOT}:o instanceof java/lang/Object aliases target {ROOT}:this.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next|.examples/sir/dll/DoubleLinkedList$Entry:previous)*.examples/sir/dll/DoubleLinkedList$Entry:element;
+{ROOT}:element instanceof java/lang/Object aliases target {ROOT}:this.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next|.examples/sir/dll/DoubleLinkedList$Entry:previous)*.examples/sir/dll/DoubleLinkedList$Entry:element;
+
+-- for all the entries e, e.element is not an entry
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next|.examples/sir/dll/DoubleLinkedList$Entry:previous)*.examples/sir/dll/DoubleLinkedList$Entry:element instanceof java/lang/Object aliases target {ROOT}:(?!{°}*examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next|.examples/sir/dll/DoubleLinkedList$Entry:previous)*{EOL}){°}*;
+
+-- list header must exist and be distinct from other nodes
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header instanceof examples/sir/dll/DoubleLinkedList$Entry not null;
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header instanceof examples/sir/dll/DoubleLinkedList$Entry aliases nothing;
+
+-- list header stores no data
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header.examples/sir/dll/DoubleLinkedList$Entry:element instanceof java/lang/Object expands to nothing;
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header.examples/sir/dll/DoubleLinkedList$Entry:element instanceof java/lang/Object aliases nothing;
+
+-- all list entries must have a next and a previous
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next|.examples/sir/dll/DoubleLinkedList$Entry:previous)* instanceof examples/sir/dll/DoubleLinkedList$Entry not null;
+
+-- the rightmost entry can be resolved by alias to the leftmost one and vice versa
+-- (note that these rules include the degenerate empty list case header.next == header.prev == header);
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next)* instanceof examples/sir/dll/DoubleLinkedList$Entry aliases target {MAX}{$R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:previous)*;
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:previous)* instanceof examples/sir/dll/DoubleLinkedList$Entry aliases target {MAX}{$R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next)*;
+
+-- for all the entries e it must be e.next.previous == e and e.previous.next == e
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next)+.examples/sir/dll/DoubleLinkedList$Entry:previous instanceof examples/sir/dll/DoubleLinkedList$Entry expands to nothing;
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:next)+.examples/sir/dll/DoubleLinkedList$Entry:previous instanceof examples/sir/dll/DoubleLinkedList$Entry aliases target {$REF}.{UP}.{UP};
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:previous)+.examples/sir/dll/DoubleLinkedList$Entry:next instanceof examples/sir/dll/DoubleLinkedList$Entry expands to nothing;
+{R_ANY}.examples/sir/dll/DoubleLinkedList:header(.examples/sir/dll/DoubleLinkedList$Entry:previous)+.examples/sir/dll/DoubleLinkedList$Entry:next instanceof examples/sir/dll/DoubleLinkedList$Entry aliases target {$REF}.{UP}.{UP};
+
+resolve end

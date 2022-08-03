@@ -1,0 +1,6 @@
+resolve begin
+
+-- root/left/right entries expand or are null
+{R_ANY}.examples/kiasan/avltree/AvlTree:root(.examples/kiasan/avltree/AvlNode:left|.examples/kiasan/avltree/AvlNode:right)* instanceof examples/kiasan/avltree/AvlNode aliases nothing;
+
+resolve end

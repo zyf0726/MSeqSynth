@@ -1,0 +1,31 @@
+resolve begin
+
+-- parameter value and field Entry.value are both distinct objects or null, or alias of each other 
+{ROOT}:value instanceof java/lang/Object aliases target {ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:value;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:value instanceof java/lang/Object aliases target {ROOT}:value;
+
+------------------------------------------------- 
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)* instanceof examples/sushi/treemap/TreeMap$Entry aliases nothing;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:right instanceof examples/sushi/treemap/TreeMap$Entry expands to instanceof examples/sushi/treemap/TreeMap$Entry triggers examples/sushi/treemap/TreeMap$Entry$HEXTriggers:(Lexamples/sushi/treemap/TreeMap$Entry;)V:_got_TreeMap_RightEntry:{$REF};
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:left instanceof examples/sushi/treemap/TreeMap$Entry expands to instanceof examples/sushi/treemap/TreeMap$Entry triggers examples/sushi/treemap/TreeMap$Entry$HEXTriggers:(Lexamples/sushi/treemap/TreeMap$Entry;)V:_got_TreeMap_LeftEntry:{$REF};
+{ROOT}:this.examples/sushi/treemap/TreeMap:root instanceof examples/sushi/treemap/TreeMap$Entry expands to instanceof examples/sushi/treemap/TreeMap$Entry triggers examples/sushi/treemap/TreeMap$Entry$HEXTriggers:(Lexamples/sushi/treemap/TreeMap$Entry;)V:_got_TreeMap_RootEntry:{$REF};
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)+ instanceof examples/sushi/treemap/TreeMap$Entry null triggers examples/sushi/treemap/TreeMap$Entry$HEXTriggers:(Lexamples/sushi/treemap/TreeMap$Entry;)V:_handlePathClosure:{$REF}.{UP};
+
+{ROOT}:this.root instanceof examples/sushi/treemap/TreeMap$Entry null triggers examples/sushi/treemap/TreeMap$HEXTriggers:(Lexamples/sushi/treemap/TreeMap;)V:_handleNullRoot:{$REF}.{UP};
+
+-- TreeMap.Entry.wellConnected
+{ROOT}:this.examples/sushi/treemap/TreeMap:root.examples/sushi/treemap/TreeMap$Entry:parent instanceof examples/sushi/treemap/TreeMap$Entry expands to nothing;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root.examples/sushi/treemap/TreeMap$Entry:parent instanceof examples/sushi/treemap/TreeMap$Entry aliases nothing;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)+.examples/sushi/treemap/TreeMap$Entry:parent instanceof examples/sushi/treemap/TreeMap$Entry not null;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)+.examples/sushi/treemap/TreeMap$Entry:parent instanceof examples/sushi/treemap/TreeMap$Entry expands to nothing;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)+.examples/sushi/treemap/TreeMap$Entry:parent instanceof examples/sushi/treemap/TreeMap$Entry aliases target {$REF}.{UP}.{UP};
+
+-- all the entries in a TreeMap refer their owner (ghost field)
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:_owner instanceof examples/sushi/treemap/TreeMap not null;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:_owner instanceof examples/sushi/treemap/TreeMap expands to nothing;
+{ROOT}:this.examples/sushi/treemap/TreeMap:root(.examples/sushi/treemap/TreeMap$Entry:left|.examples/sushi/treemap/TreeMap$Entry:right)*.examples/sushi/treemap/TreeMap$Entry:_owner instanceof examples/sushi/treemap/TreeMap aliases target {ROOT}:this;
+resolve end
+
+trigger begin
+instanceof examples/sushi/treemap/TreeMap expands to instanceof examples/sushi/treemap/TreeMap triggers examples/sushi/treemap/TreeMap$HEXTriggers:(Lexamples/sushi/treemap/TreeMap;)V:_got_TreeMap:{$REF};
+trigger end

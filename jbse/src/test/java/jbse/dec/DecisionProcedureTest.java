@@ -45,7 +45,7 @@ public class DecisionProcedureTest {
 	//BEGIN TO PATCH
 	private static final ArrayList<String> COMMAND_LINE = Z3_COMMAND_LINE;
 
-	//Settings for Docker
+	//local settings
 	private static final String SMT_SOLVER_PATH = "D:/Tools/z3-4.10.2-x64-win/bin/z3.exe";
 
 	//Pietro's local settings
