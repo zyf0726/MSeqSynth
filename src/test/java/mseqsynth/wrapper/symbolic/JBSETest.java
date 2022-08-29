@@ -16,29 +16,24 @@ import jbse.apps.run.RunParameters.StateFormatMode;
 import jbse.apps.run.RunParameters.StepShowMode;
 import jbse.apps.settings.ParseException;
 import jbse.apps.settings.SettingsReader;
+import mseqsynth.common.settings.JBSEParameters;
 import mseqsynth.common.settings.Options;
 
 public class JBSETest {
 	
-    //Customize them
-    private static final String JBSE_HOME         = "jbse/";
-
-    //Leave them alone
-    private static final String JBSE_CLASSPATH    = JBSE_HOME + "build/classes/java/main";
-    private static final String JBSE_SOURCEPATH   = JBSE_HOME + "src/main/java/";
     private static final String TARGET_CLASSPATH  = "bin/test/";
     private static final String TARGET_SOURCEPATH = "src/test/java/";
     private static final String JRE_SOURCEPATH    = System.getProperty("java.home", "") + "src.zip";
 
     //Leave them alone, or add more stuff
     private static final String[] CLASSPATH       = { TARGET_CLASSPATH };
-    private static final String[] SOURCEPATH      = { JBSE_SOURCEPATH, TARGET_SOURCEPATH, JRE_SOURCEPATH };
+    private static final String[] SOURCEPATH      = { TARGET_SOURCEPATH, JRE_SOURCEPATH };
     
     private static void makeTest(String mClass, String mDesc, String mName,
     		String outPath, String hexFilePath,
     		Map<String, Integer> heapScope) {
 		final RunParameters p = new RunParameters();
-        p.setJBSELibPath(JBSE_CLASSPATH);
+        p.setJBSELibPath(JBSEParameters.I().getJBSEClassPath());
         p.addUserClasspath(CLASSPATH);
         p.addSourcePath(SOURCEPATH);
         p.setMethodSignature(mClass, mDesc, mName);
