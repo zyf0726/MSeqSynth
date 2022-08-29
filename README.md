@@ -22,7 +22,7 @@ To satisfy the remaining dependencies, you might need to download and unzip/inst
 
 - `Eclipse IDE for Java Developers` from https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2022-06/R/eclipse-java-2022-06-R-win32-x86_64.zip
 - `Z3 pre-built binaries` from https://github.com/Z3Prover/z3/releases/download/z3-4.11.0/z3-4.11.0-x64-win.zip
-- `JDK 8` from https://download.oracle.com/otn/java/jdk/8u341-b10/424b9da4b48848379167015dcc250d8d/jdk-8u341-windows-x64.exe
+- `JDK 8` from https://www.oracle.com/java/technologies/downloads/#java8-windows
 
 ## Installation
 
