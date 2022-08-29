@@ -26,7 +26,7 @@ To satisfy the remaining dependencies, you might need to download and unzip/inst
 
 ## Installation
 
-See [Install.md](./install.md).
+See [INSTALL.md](./INSTALL.md).
 
 ## Usage Examples
 
