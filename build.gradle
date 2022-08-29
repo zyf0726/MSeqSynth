@@ -26,7 +26,7 @@ repositories {
     mavenCentral()
     
     flatDir {
-   		dirs "${javaHome}/lib", "${project(':jbse').projectDir}/libs"
+   		dirs "${javaHome}/lib"
     }
 }
 
@@ -44,8 +44,11 @@ dependencies {
     implementation files("${rootDir}/libs/com.microsoft.z3.jar")
     
     // jbse
-    implementation project(':jbse')
-  
+    implementation files("${rootDir}/libs/jbse-0.10.0-SNAPSHOT.jar")
+    
+    // javassist
+    implementation files("${rootDir}/libs/javassist.jar")
+    
 }
 
 version = '0.10.0-SNAPSHOT'

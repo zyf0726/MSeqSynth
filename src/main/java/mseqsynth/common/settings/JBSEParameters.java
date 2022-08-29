@@ -21,46 +21,11 @@ public class JBSEParameters {
 	
 	private static final String JRE_SOURCEPATH = System.getProperty("java.home", "") + "src.zip";
 	
-	// JBSE home directory
-	private Path jbseHomeDir = null;
-	
-	private Path getJBSEHomeDir() {
-		if (this.jbseHomeDir == null) {
-			this.jbseHomeDir = Options.I().getHomeDirectory().resolve("jbse");
-		}
-		return this.jbseHomeDir;
-	}
-	
-	public void setJBSEHomeDir(String jbseHomeDir) {
-		this.jbseHomeDir = Paths.get(jbseHomeDir);
-	}
-	
-	// JBSE class path & source path
-	private Path jbseClassPath = null;
-	private Path jbseSourcePath = null;
-	
-	public void setJBSEClassPath(String jbseClassPath) {
-		this.jbseClassPath = Paths.get(jbseClassPath);
-	}
-	
-	public void setJBSESourcePath(String jbseSourcePath) {
-		this.jbseSourcePath = Paths.get(jbseSourcePath);
-	}
+	// JBSE class path
+	private Path jbseClassPath = Options.I().getHomeDirectory().resolve("libs/jbse-0.10.0-SNAPSHOT.jar");
 	
 	public String getJBSEClassPath() {
-		if (this.jbseClassPath != null) {
-			return this.jbseClassPath.toAbsolutePath().toString();
-		} else {
-			return this.getJBSEHomeDir().resolve("build/classes/java/main").toAbsolutePath().toString();
-		}
-	}
-	
-	public String getJBSESourcePath() {
-		if (this.jbseSourcePath != null) {
-			return this.jbseSourcePath.toAbsolutePath().toString();
-		} else {
-			return this.getJBSEHomeDir().resolve("src/main/java").toAbsolutePath().toString();
-		}
+		return this.jbseClassPath.toAbsolutePath().toString();
 	}
 	
 	// target class path
@@ -170,7 +135,7 @@ public class JBSEParameters {
 		RunParameters rp = new RunParameters();
 		rp.setJBSELibPath(this.getJBSEClassPath());
 		rp.addUserClasspath(this.getTargetClassPath());
-		rp.addSourcePath(this.getJBSESourcePath(), this.getTargetSourcePath(), JRE_SOURCEPATH);
+		rp.addSourcePath(this.getTargetSourcePath(), JRE_SOURCEPATH);
 		rp.setMethodSignature(
 				this.targetMethod.getDeclaringClass().getName().replace('.', '/'),
 				getMethodSignature(this.targetMethod).replace('.', '/'),
