@@ -30,7 +30,7 @@ See [INSTALL.md](./INSTALL.md).
 
 ## Usage Examples
 
-After building the project MSeqSynth, you can try to run several examples in the package `examples`. For example, run `examples.demo.NodeLauncher` and see whether it synthesizes (and outputs in the console) a method call sequence satisfying the following specification:
+After building the project MSeqSynth, you can try to run several examples in the package `examples`. For example, run `examples.demo.NodeLauncher` and see whether it synthesizes (and outputs in the Console view) a method call sequence satisfying the following specification:
 - `o` is the input parameter of the method under test `@DemoTest`,
 - `o`, `o.next`, and `o.next.next` are fresh objects,
 - `o.next.next.next` is null,
